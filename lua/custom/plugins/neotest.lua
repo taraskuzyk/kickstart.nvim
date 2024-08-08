@@ -1,23 +1,39 @@
 return {
     {
+        'mfussenegger/nvim-dap-python',
+        config = function()
+            local dap = require 'dap'
+            dap.configurations.python = {
+                {
+                    type = 'python',
+                    request = 'launch',
+                    name = 'Launch file',
+                    pythonPath = 'python',
+                },
+            }
+        end,
+    },
+    {
         'nvim-neotest/neotest',
         dependencies = {
-            'nvim-neotest/neotest-python',
             'nvim-neotest/nvim-nio',
             'nvim-lua/plenary.nvim',
             'antoinemadec/FixCursorHold.nvim',
             'nvim-treesitter/nvim-treesitter',
             'mfussenegger/nvim-dap-python',
+            'nvim-neotest/neotest-python',
         },
-        opts = {
-            adapters = {
-                ['neotest-python'] = {
-                    dap = { justMyCode = false },
-                    args = { '--log-level', 'DEBUG' },
-                    runner = 'pytest',
+        config = function()
+            require('neotest').setup {
+                adapters = {
+                    require 'neotest-python' {
+                        dap = { justMyCode = false, console = 'integratedTerminal' },
+                        args = { '--log-level', 'DEBUG' },
+                        runner = 'pytest',
+                    },
                 },
-            },
-        },
+            }
+        end,
 
         keys = function()
             local neotest = require 'neotest'
