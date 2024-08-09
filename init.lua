@@ -74,7 +74,8 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    'tpope/vim-sleuth',
+    'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+    { 'Aasim-A/scrollEOF.nvim', event = { 'CursorMoved', 'WinScrolled' }, opts = {} },
     {
         'lewis6991/gitsigns.nvim',
         opts = {
@@ -134,24 +135,26 @@ require('lazy').setup({
             pcall(require('telescope').load_extension, 'ui-select')
 
             local builtin = require 'telescope.builtin'
-            vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+            vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Tele[S]cope [F]iles' })
             vim.keymap.set('n', '<leader>/', function()
                 builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
                     winblend = 10,
                     previewer = false,
                 })
             end, { desc = '[/] Fuzzily search in current buffer' })
+            vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Tele[S]cope [G]rep' })
+            vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Tele[S]cope [Q]uickfix' })
 
             vim.keymap.set('n', '<leader>s/', function()
                 builtin.live_grep {
                     grep_open_files = true,
                     prompt_title = 'Live Grep in Open Files',
                 }
-            end, { desc = '[S]earch [/] in Open Files' })
+            end, { desc = 'Tele[S]scope [/] Open Files' })
 
             vim.keymap.set('n', '<leader>sn', function()
                 builtin.find_files { cwd = vim.fn.stdpath 'config' }
-            end, { desc = '[S]earch [N]eovim files' })
+            end, { desc = 'Tele[S]cope [N]eovim files' })
         end,
     },
 
@@ -172,11 +175,17 @@ require('lazy').setup({
             'williamboman/mason-lspconfig.nvim',
             'WhoIsSethDaniel/mason-tool-installer.nvim',
             'hrsh7th/cmp-nvim-lsp',
+            'ray-x/lsp_signature.nvim',
         },
         config = function()
             vim.api.nvim_create_autocmd('LspAttach', {
                 group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
                 callback = function(event)
+                    require('lsp_signature').setup {}
+                    vim.keymap.set({ 'n' }, '<C-k>', function()
+                        require('lsp_signature').toggle_float_win()
+                    end)
+
                     local map = function(keys, func, desc)
                         vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
                     end
@@ -292,9 +301,6 @@ require('lazy').setup({
             {
                 'L3MON4D3/LuaSnip',
                 build = (function()
-                    -- Build Step is needed for regex support in snippets.
-                    -- This step is not supported in many windows environments.
-                    -- Remove the below condition to re-enable on windows.
                     if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
                         return
                     end
