@@ -30,6 +30,10 @@ return {
                         dap = { justMyCode = false, console = 'integratedTerminal' },
                         args = { '--log-level', 'DEBUG' },
                         runner = 'pytest',
+                        is_test_file = function(file_path)
+                            local file_name = vim.fn.fnamemodify(file_path, ':t')
+                            return vim.startswith(file_name, 'test_') and vim.endswith(file_name, '.py')
+                        end,
                     },
                 },
             }
@@ -83,7 +87,7 @@ return {
                 {
                     '<leader>ta',
                     function()
-                        neotest.run.run(vim.fn.getcwd())
+                        neotest.run.run { suite = true }
                     end,
                     desc = 'Test Run All',
                 },
