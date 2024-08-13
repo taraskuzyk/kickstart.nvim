@@ -3,10 +3,10 @@ return {
     keys = function()
         local ss = require 'smart-splits'
         return {
-            { '<A-h>', ss.resize_left },
-            { '<A-j>', ss.resize_down },
-            { '<A-k>', ss.resize_up },
-            { '<A-l>', ss.resize_right },
+            { '<A-H>', ss.resize_left },
+            { '<A-J>', ss.resize_down },
+            { '<A-K>', ss.resize_up },
+            { '<A-L>', ss.resize_right },
             { '<C-h>', ss.move_cursor_left },
             { '<C-j>', ss.move_cursor_down },
             { '<C-k>', ss.move_cursor_up },

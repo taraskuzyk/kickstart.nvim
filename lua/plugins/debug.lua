@@ -23,19 +23,20 @@ return {
         local dapui = require 'dapui'
         return {
             -- Basic debugging keymaps, feel free to change to your liking!
-            { '<C-C>', dap.continue, desc = 'Debug: Start/Continue' },
-            { '<C-J>', dap.step_into, desc = 'Debug: Step Into' },
-            { '<C-O>', dap.step_over, desc = 'Debug: Step Over' },
-            { '<C-K>', dap.step_out, desc = 'Debug: Step Out' },
-            { '<C-S>', dap.stop, desc = 'Debug: Stop' },
-            { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+            { '<A-C>', dap.continue, desc = 'Debug: Start/Continue' },
+            { '<A-J>', dap.step_into, desc = 'Debug: Step Into' },
+            { '<A-O>', dap.step_over, desc = 'Debug: Step Over' },
+            { '<A-K>', dap.step_out, desc = 'Debug: Step Out' },
+            { '<A-S>', dap.close, desc = 'Debug: Stop' },
+            { '<A-b>', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
             {
-                '<leader>B',
+                '<A-B>',
                 function()
                     dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
                 end,
                 desc = 'Debug: Set Breakpoint',
             },
+            { '<A-R>', dap.repl.toggle(), desc = 'Debug: REPL toggle' },
             -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
             { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
             unpack(keys),
