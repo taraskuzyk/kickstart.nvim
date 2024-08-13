@@ -14,8 +14,7 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
-
--- Decrease update time
+vim.opt.relativenumber = true
 vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
