@@ -15,6 +15,7 @@ return {
     },
     {
         'nvim-neotest/neotest',
+        -- dir = '~/code/nvim/neotest',
         dependencies = {
             'nvim-neotest/nvim-nio',
             'nvim-lua/plenary.nvim',
