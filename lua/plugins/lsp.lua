@@ -12,7 +12,7 @@ return {
             group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
             callback = function(event)
                 require('lsp_signature').setup {}
-                vim.keymap.set({ 'n' }, '<C-k>', function()
+                vim.keymap.set({ 'n' }, '<C-s>', function()
                     require('lsp_signature').toggle_float_win()
                 end)
 
