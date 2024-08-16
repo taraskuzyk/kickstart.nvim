@@ -25,7 +25,7 @@ return {
             -- Basic debugging keymaps, feel free to change to your liking!
             { '<A-C>', dap.continue, desc = 'Debug: Start/Continue' },
             { '<A-J>', dap.step_into, desc = 'Debug: Step Into' },
-            { '<A-O>', dap.step_over, desc = 'Debug: Step Over' },
+            { '<A-L>', dap.step_over, desc = 'Debug: Step Over' },
             { '<A-K>', dap.step_out, desc = 'Debug: Step Out' },
             { '<A-S>', dap.close, desc = 'Debug: Stop' },
             { '<A-b>', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
