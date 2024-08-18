@@ -5,9 +5,7 @@ vim.opt.number = true
 vim.opt.mouse = 'a'
 
 vim.opt.showmode = false
-vim.schedule(function()
-    vim.opt.clipboard = 'unnamedplus'
-end)
+vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.breakindent = true
 vim.opt.undofile = true
