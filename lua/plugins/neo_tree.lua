@@ -10,4 +10,13 @@ return {
     keys = {
         { '<leader>e', ':Neotree toggle<CR>', desc = 'NeoTree reveal' },
     },
+    opts = {
+        always_show = {
+            '.docx',
+        },
+        never_show_by_pattern = {
+            '*__pycache__*',
+            '*pyc',
+        },
+    },
 }
