@@ -14,8 +14,11 @@ return {
         always_show = {
             '.docx',
         },
+        never_show = {
+            '__pycache__',
+        },
         never_show_by_pattern = {
-            '*__pycache__*',
+            '*pycache*',
             '*pyc',
         },
     },
