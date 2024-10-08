@@ -92,6 +92,14 @@ return {
                     end,
                     desc = 'Test Run All',
                 },
+                {
+                    '<leader>tr',
+                    function()
+                        package.loaded['neotest'] = nil
+                        require 'neotest'
+                    end,
+                    desc = 'Reaload Neotest',
+                },
             }
         end,
     },
