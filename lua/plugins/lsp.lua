@@ -72,6 +72,19 @@ return {
                     },
                 },
             },
+            rust_analyzer = {
+                settings = {
+                    ['rust-analyzer'] = {
+                        check = {
+                            allTargets = false,
+                        },
+                        cargo = {
+                            target = 'thumbv6m-none-eabi',
+                        },
+                        checkOnSave = { allTargets = false, target = 'thumbv6m-none-eabi' },
+                    },
+                },
+            },
         }
         require('mason').setup()
 
