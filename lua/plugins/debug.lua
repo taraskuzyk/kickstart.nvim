@@ -57,8 +57,9 @@ return {
         table.insert(dap.configurations.python, {
             type = 'python',
             request = 'launch',
-            name = 'My custom launch configuration',
+            name = 'Custom launch config',
             program = '${file}',
+            justMyCode = false,
             -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
         })
         require('dap-python').setup '~/.virtualenvs/debugpy/bin/python'
