@@ -14,6 +14,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.relativenumber = true
 vim.opt.updatetime = 250
+vim.opt.indentexpr = ''
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
