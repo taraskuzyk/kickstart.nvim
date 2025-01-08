@@ -29,7 +29,7 @@ return {
                 adapters = {
                     require 'neotest-python' {
                         dap = { justMyCode = false, console = 'integratedTerminal' },
-                        args = { '--log-level', 'DEBUG' },
+                        args = { '--log-level', 'DEBUG', '-vv' },
                         runner = 'pytest',
                         is_test_file = function(file_path)
                             local file_name = vim.fn.fnamemodify(file_path, ':t')
