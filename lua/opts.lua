@@ -14,7 +14,11 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.relativenumber = true
 vim.opt.updatetime = 250
+
+-- Indenting options
 vim.opt.indentexpr = ''
+vim.opt.autoindent = true
+vim.opt.cindent = false
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
