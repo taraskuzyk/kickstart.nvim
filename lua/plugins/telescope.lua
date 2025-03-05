@@ -1,3 +1,31 @@
+local ts_select_dir_for_grep = function(prompt_bufnr)
+    local action_state = require 'telescope.actions.state'
+    local fb = require('telescope').extensions.file_browser
+    local live_grep = require('telescope.builtin').live_grep
+    local current_line = action_state.get_current_line()
+
+    fb.file_browser {
+        files = false,
+        depth = false,
+        attach_mappings = function(prompt_bufnr)
+            require('telescope.actions').select_default:replace(function()
+                local entry_path = action_state.get_selected_entry().Path
+                local dir = entry_path:is_dir() and entry_path or entry_path:parent()
+                local relative = dir:make_relative(vim.fn.getcwd())
+                local absolute = dir:absolute()
+
+                live_grep {
+                    results_title = relative .. '/',
+                    cwd = absolute,
+                    default_text = current_line,
+                }
+            end)
+
+            return true
+        end,
+    }
+end
+
 return {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -12,6 +40,7 @@ return {
             end,
         },
         { 'nvim-telescope/telescope-ui-select.nvim' },
+        { 'nvim-telescope/telescope-file-browser.nvim' },
         { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
@@ -19,6 +48,31 @@ return {
             extensions = {
                 ['ui-select'] = {
                     require('telescope.themes').get_dropdown(),
+                },
+                ['file_browser'] = {
+                    theme = 'ivy',
+                    -- disables netrw and use telescope-file-browser in its place
+                    hijack_netrw = true,
+                    mappings = {
+                        ['i'] = {
+                            -- your custom insert mode mappings
+                        },
+                        ['n'] = {
+                            -- your custom normal mode mappings
+                        },
+                    },
+                },
+            },
+            pickers = {
+                live_grep = {
+                    mappings = {
+                        i = {
+                            ['<C-f>'] = ts_select_dir_for_grep,
+                        },
+                        n = {
+                            ['<C-f>'] = ts_select_dir_for_grep,
+                        },
+                    },
                 },
             },
         }
