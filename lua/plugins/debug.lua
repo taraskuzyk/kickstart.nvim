@@ -28,6 +28,7 @@ return {
             { '<A-L>', dap.step_over, desc = 'Debug: Step Over' },
             { '<A-K>', dap.step_out, desc = 'Debug: Step Out' },
             { '<A-S>', dap.close, desc = 'Debug: Stop' },
+            { '<A-P>', dap.pause, desc = 'Debug: Pause' },
             { '<A-b>', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
             {
                 '<A-B>',
