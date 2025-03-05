@@ -7,7 +7,7 @@ return {
         highlight = {
             enable = true,
         },
-        indent = { enable = true, disable = { 'python' } },
+        -- indent = { enable = true, disable = { 'python' } },
     },
     config = function(_, opts)
         ---@diagnostic disable-next-line: missing-fields
