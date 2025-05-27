@@ -5,17 +5,11 @@ return {
         'williamboman/mason-lspconfig.nvim',
         'WhoIsSethDaniel/mason-tool-installer.nvim',
         'hrsh7th/cmp-nvim-lsp',
-        'ray-x/lsp_signature.nvim',
     },
     config = function()
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
             callback = function(event)
-                require('lsp_signature').setup {}
-                vim.keymap.set({ 'n' }, '<C-s>', function()
-                    require('lsp_signature').toggle_float_win()
-                end)
-
                 local map = function(keys, func, desc)
                     vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
                 end
@@ -62,7 +56,15 @@ return {
         capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
         local servers = {
-            basedpyright = {},
+            basedpyright = {
+                analysis = {
+                    diagnosticMode = 'openFilesOnly',
+                    inlayHints = {
+                        callArgumentNames = true,
+                    },
+                    useLibraryCodeForTypes = true,
+                },
+            },
             lua_ls = {
                 settings = {
                     Lua = {
@@ -91,7 +93,7 @@ return {
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
             'stylua',
-            'black',
+            'ruff',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
