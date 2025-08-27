@@ -1,5 +1,5 @@
 return {
-    'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+    'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
     { 'Aasim-A/scrollEOF.nvim', event = { 'CursorMoved', 'WinScrolled' }, opts = {} },
     {
         'lewis6991/gitsigns.nvim',
