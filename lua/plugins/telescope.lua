@@ -26,6 +26,24 @@ local ts_select_dir_for_grep = function(prompt_bufnr)
     }
 end
 
+local actions = require 'telescope.actions'
+local action_state = require 'telescope.actions.state'
+
+local fzf_multi_select = function(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local num_selections = table.getn(picker:get_multi_selection())
+
+    if num_selections > 1 then
+        local picker = action_state.get_current_picker(prompt_bufnr)
+        for _, entry in ipairs(picker:get_multi_selection()) do
+            vim.cmd(string.format('%s %s', ':e!', entry.value))
+        end
+        vim.cmd 'stopinsert'
+    else
+        actions.file_edit(prompt_bufnr)
+    end
+end
+
 local select_one_or_multi = function(prompt_bufnr)
     local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
     local multi = picker:get_multi_selection()
@@ -33,7 +51,11 @@ local select_one_or_multi = function(prompt_bufnr)
         require('telescope.actions').close(prompt_bufnr)
         for _, j in pairs(multi) do
             if j.path ~= nil then
-                vim.cmd(string.format('%s %s', 'edit', j.path))
+                if j.lnum ~= nil then
+                    vim.cmd(string.format('%s +%s %s', 'edit', j.lnum, j.path))
+                else
+                    vim.cmd(string.format('%s %s', 'edit', j.path))
+                end
             end
         end
     else
@@ -87,6 +109,7 @@ return {
                         },
                         n = {
                             ['<C-f>'] = ts_select_dir_for_grep,
+                            ['<CR>'] = select_one_or_multi,
                         },
                     },
                 },
