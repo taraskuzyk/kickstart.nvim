@@ -1,5 +1,4 @@
 require 'opts'
-require 'keymaps'
 require 'autocmds'
 
 vim.diagnostic.config { virtual_lines = true }
@@ -19,3 +18,5 @@ require('lazy').setup {
     require 'themes',
     { import = 'plugins' },
 }
+
+require 'keymaps'
