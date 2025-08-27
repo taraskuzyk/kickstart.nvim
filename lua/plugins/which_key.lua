@@ -11,6 +11,7 @@ return {
             { '<leader>s', group = 'Tele[S]cope' },
             { '<leader>w', group = '[W]orkspace' },
             { '<leader>t', group = '[T]est' },
+            { '<leader>q', group = 'Persistence' },
         }
     end,
 }
