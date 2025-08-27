@@ -57,12 +57,13 @@ return {
 
         local servers = {
             basedpyright = {
+                useLibraryCodeForTypes = true,
                 analysis = {
                     diagnosticMode = 'openFilesOnly',
                     inlayHints = {
                         callArgumentNames = true,
                     },
-                    useLibraryCodeForTypes = true,
+                    autoSearchPaths = true,
                 },
             },
             lua_ls = {
