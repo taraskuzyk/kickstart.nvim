@@ -16,3 +16,11 @@ vim.keymap.set('n', '<A-Up>', ':resize -2<CR>')
 vim.keymap.set('n', '<A-Down>', ':resize +2<CR>')
 vim.keymap.set('n', '<A-Left>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<A-Right>', ':vertical resize +2<CR>')
+
+local persistence = require 'persistence'
+vim.keymap.set('n', '<leader>qs', persistence.load, { desc = 'Load session' })
+vim.keymap.set('n', '<leader>qS', persistence.select, { desc = 'Select session' })
+vim.keymap.set('n', '<leader>ql', function()
+    require('persistence').load { last = true }
+end, { desc = 'Load last session' })
+vim.keymap.set('n', '<leader>qd', persistence.stop, { desc = 'Stop persistence' })
